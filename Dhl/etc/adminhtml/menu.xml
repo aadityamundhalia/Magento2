@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Project_Dhl::first_level_main"
+             title="Projects"
+             module="Project_Dhl"
+             sortOrder="20"
+             resource="Project_Dhl::first_level_main" />
+
+         <add id="Project_Dhl::index_level_3_0"
+            title="Project DHL"
+            module="Project_Dhl"
+            sortOrder="0"
+            parent="Project_Dhl::first_level_main"
+            resource="Project_Dhl::index_level_3_0" />
+
+         <add id="Project_Dhl::index_level_3_1"
+              title="DHL Barcode"
+              module="Project_Dhl"
+              sortOrder="0"
+              action="dhl/index/index"
+              parent="Project_Dhl::index_level_3_0"
+              resource="Project_Dhl::barcode" />
+
+        <add id="Project_Dhl::index_level_3_2"
+             title="Generate"
+             module="Project_Dhl"
+             sortOrder="0"
+             action="dhl/generate/index"
+             parent="Project_Dhl::index_level_3_0"
+             resource="Project_Dhl::generate" />
+
+        <add id="Project_Dhl::index_level_3_3"
+             title="Clean"
+             module="Project_Dhl"
+             sortOrder="0"
+             action="dhl/clean/index"
+             parent="Project_Dhl::index_level_3_0"
+             resource="Project_Dhl::clean" />
+    </menu>
+</config>

@@ -1,0 +1,34 @@
+<style scoped>
+
+        .button-success,
+        .button-error,
+        .button-warning,
+        .button-secondary {
+            color: white;
+            border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+        .button-error {
+            background: rgb(202, 60, 60); /* this is a maroon */
+        }
+
+        .button-xlarge {
+            font-size: 125%;
+        }
+</style>
+<?php
+  $post = $this->link('dhl/clean/clean');
+?>
+<br><br>
+<h2>Warning</h2>
+<p>
+  This button delete's all data from table zdhl_orders which is used to store all orders scanned. Data need to be cleared preiodically; however,
+  data which is not already generated, will be lost when table is turncated. Only authorized personal should proceed when clearing data.
+   If unsure please contact the team manager before performing the operation.
+</p>
+<br><br>
+<hr>
+<form onsubmit="return confirm('Are you sure you want to delete all Data from DHL orders');" id="form" action="<?php echo $post; ?>" method="post" class="pure-form pure-form-stacked">
+  <input name="form_key" id="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>" />
+  <div align="right"><button type="submit" class="button-xlarge button-error pure-button">Turncate</button></div>
+</form>

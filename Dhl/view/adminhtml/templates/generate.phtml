@@ -1,0 +1,33 @@
+<?php
+	$post = $this->link('dhl/generate/generator');
+?>
+<style>
+.hidden { display: none; }
+</style>
+<?php
+  $list = $this->getList();
+  krsort($list);
+  $ii = 0;
+  foreach($list as $file)
+  {
+      $arr = explode('/',$file);
+      $name = end($arr);
+      $path = $this->getPath() . "DHL/" . $name;
+
+      //$filename = str_replace($path,'',$file);
+      echo "<a href=\"$path\" download>$path</a>" . " - " .filesize($file) . ' bytes';
+      echo "<br />";
+      $ii++;
+      if ($ii == 9) break;
+  }
+?>
+<br></br>
+<form id="form" action="<?php echo $post; ?>" name="form" method="post" class="pure-form pure-form-stacked">
+  <fieldset>
+    <center>
+      <input name="form_key" id="form_key" type="hidden" value="<?php /* @escapeNotVerified */ echo $block->getFormKey() ?>" />
+      <button type="submit" name="submit" style="font-size: 125%;" class="action submit primary">Generate
+      </button>
+    </center>
+  </fieldset>
+</form>

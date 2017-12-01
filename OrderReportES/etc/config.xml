@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <project_orderreportes>
+            <settings>
+                <identity>general</identity>
+                <template>project_orderreportes_email_template_order</template>
+            </settings>
+        </project_orderreportes>
+            <order>
+                <general>
+                    <storeId>6</storeId>
+                    <tomail>Carla@pharmacyonline.com.au,heather@pharmacyonline.com.au,matildas@pharmacyonline.com.au</tomail>
+                    <bcc>sunitha@pharmacyonline.com.au,kiri@pharmacyonline.com.au,melannie@pharmacyonline.com.au</bcc>
+                    <toname>Order Report</toname>
+                </general>
+            </order>
+    </default>
+</config>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="project" translate="label" sortOrder="10">
+            <label>Project</label>
+        </tab>
+        <section id="htc" translate="label" sortOrder="131" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>HTC</label>
+            <tab>project</tab>
+            <resource>Project_Htc::htc_configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="aes_key" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>aes_key</label>
+                </field>
+                <field id="aes_iv" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>aes_iv</label>
+                </field>
+                <field id="md5_key_po" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>md5_key PO</label>
+                </field>
+                <field id="md5_key_cd" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>md5_key CD</label>
+                </field>
+            </group>
+            <group id="stores" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Store Configuration</label>
+                <field id="store" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Store view</label>
+                    <comment>add store array eg. pharmacyonline,chemistdirect - no space after comma</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

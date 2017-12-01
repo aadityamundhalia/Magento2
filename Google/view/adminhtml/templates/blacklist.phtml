@@ -1,0 +1,240 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); //Set object Manager to call Models
+$HelperBackend = $objectManager->get('Magento\Framework\UrlInterface');
+$post = $HelperBackend->getUrl('keywords/products/blacklisted');
+$add = $HelperBackend->getUrl('keywords/products/Addblacklist');
+$delete = $HelperBackend->getUrl('keywords/products/Deleteblacklist');
+$search = $HelperBackend->getUrl('keywords/products/BlacklistSearch');
+$generate = $HelperBackend->getUrl('keywords/generate/generate');
+$keywords = $HelperBackend->getUrl('keywords/google/keywords');
+$generateList = $HelperBackend->getUrl('keywords/generate/index');
+$console = $HelperBackend->getUrl('keywords/generate/console');
+?>
+<p align="right">
+  <!-- Trigger/Open The Modal -->
+  <button id="list" class="action submit primary">ShowList</button>
+  <button id="myBtn" class="action submit primary">Add Blacklist</button>
+  <br><br>
+  <textarea id="area" style="width:100%; visibility: hidden;" rows="10"><?php echo $block->getHelloWorldTxt(); ?></textarea>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <br><br>
+      </div>
+      <div class="modal-body" align="center">
+        <br>
+        <h2>Add Blacklist Word</h2>
+        <p>
+          <input type="text" id="blacklist" list="json-datalist" placeholder="Product Name.." size="100%">
+          <datalist id="json-datalist"></datalist>
+          <input name="form_key" id="form_key" type="hidden" value="<?php /* @escapeNotVerified */ echo $block->getFormKey() ?>" />
+          <br><br>
+          <div class="primary">
+              <button type="button" id="add" class="action submit primary">
+                  <span><?php /* @escapeNotVerified */ echo __('Create') ?></span>
+              </button>
+          </div>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <div id="success"><font color="green">Success</font></div>
+        <div id="error"><font color="red"><strong>Unknown error check console log</strong></font></div>
+        <div id="warning"><font color="#b38f00"><strong>Already exists</strong></font></div>
+        <br><br>
+      </div>
+    </div>
+
+  </div>
+</p>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for name...">
+
+<table id="myTable">
+ <tr class="header">
+	 <th style="width:20%;">Id</th>
+   <th style="width:20%;">sku</th>
+	 <th style="width:50%;">Name</th>
+   <th style="width:10%;">Action</th>
+ </tr>
+</table>
+<br><br>
+<form id="form" action="<?php echo $console; ?>" name="form" method="post" class="pure-form pure-form-stacked">
+    <center>
+      <input name="form_key" id="form_key" type="hidden" value="<?php /* @escapeNotVerified */ echo $block->getFormKey() ?>" />
+      <button id="generate" type="submit" name="submit" style="font-size: 125%;" class="action submit primary">Generate
+      </button>
+    </center>
+</form>
+<script>
+    require([
+        "jquery",
+        "jquery/ui",
+        "Magento_Ui/js/modal/modal"
+    ], function($){
+      var pagenum = 0;
+      $("#success").fadeOut();
+      $("#error").fadeOut();
+      $("#warning").fadeOut();
+      $("#area").fadeOut();
+
+      //call ajax
+      $(document).ajaxStart(function () {
+          $("#Loading").show();
+      }).ajaxStop(function () {
+          $("#Loading").hide();
+      });
+      $.ajax({
+              url: "<?php echo $post; ?>",
+              success: function(result)
+                {
+                  //console.log(result);
+                  var json = jQuery.parseJSON( result );
+                  var tr;
+                  for( var i = 0; i < json.length; i++)
+                  {
+                    tr = $('<tr class="items"/>');
+                    tr.append("<td>" + json[i].blacklist_id + "</td>");
+                    tr.append("<td>" + json[i].sku + "</td>");
+                    tr.append("<td>" + json[i].name + "</td>");
+                    tr.append("<td>" + '<button id='+json[i].blacklist_id+' class="btnDelete">Delete</button>' + "</td>");
+                    $('table').append(tr);
+                  }
+                }
+              });
+        //delete
+        $(document).on('click', '.btnDelete', function(){
+          if (confirm("Are you sure?")) {
+            var id = $(this).parent().siblings(":first").text();
+            $.post("<?php echo $delete; ?>",
+              {
+                  item: id
+              },
+              function(data, status)
+              {
+                console.log('Data: '+data+'status: '+status);
+                var json = jQuery.parseJSON( data );
+                var msg = json['message'];
+              });
+            $(this).parents('tr').fadeOut(1000, function(){
+              $(this).parents('tr').remove();
+            });
+          }
+        });
+      $( "#list" ).click(function()
+       {
+         $("#area").css("visibility", "visible");
+         $("#area").toggle("slow");
+       });
+
+      //show msg
+      $( "#add" ).click(function() {
+      var blacklist = $("#blacklist").val();
+      $.ajax({
+              type: "POST",
+              url: "<?php echo $add; ?>",
+              data: {item:blacklist} ,
+              success: function(data) {
+                var json = jQuery.parseJSON( data );
+                if(json['message'] === "already exists")
+                {
+                  $("#warning").fadeIn("slow");
+                  setTimeout(
+                  function()
+                  {
+                    $("#warning").fadeOut("slow");
+                  }, 2000);
+                }else if (json['message'] === "Success") {
+                  $("#success").fadeIn("slow");
+                  setTimeout(
+                  function()
+                  {
+                    $("#success").fadeOut("slow");
+                  }, 2000);
+                }else {
+                  $("#error").fadeIn("slow");
+                  setTimeout(
+                  function()
+                  {
+                    $("#error").fadeOut("slow");
+                  }, 2000);
+                  console.log(json['message']);
+                }
+              }
+            });
+      });
+
+      //search
+      function send() {
+        var blacklist=jQuery('#blacklist').val();
+        $.ajax({
+                type: "POST",
+                url: "<?php echo $search; ?>",
+                data: {blacklist:blacklist} ,
+                success: function(data) {
+                  var json = jQuery.parseJSON( data );
+                  $('#json-datalist').empty();
+                  for( var i = 0; i < json.length; i++)
+                  {
+                    $('#json-datalist').append("<option value='" + json[i].name + "'>");
+                  }
+                }
+              });
+      }
+      var timer = null;
+      $("#blacklist").keyup(function(){
+          clearTimeout(timer);
+          timer = setTimeout(send, 1000);
+      });
+
+    });
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+        location.reload();
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            location.reload();
+        }
+    }
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+</script>
+<div id="Loading" data-role="spinner" data-component="cms_block_form.cms_block_form" class="admin__data-grid-loading-mask">
+  <div class="spinner">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>

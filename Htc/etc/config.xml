@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <htc>
+            <general>
+                <aes_key>1qa2ws4rf3edzxcv</aes_key>
+                <aes_iv>dfg452ws</aes_iv>
+                <md5_key_po>POC0nZjXgRWhUxvetS@TEST#MD5_2017</md5_key_po>
+                <md5_key_cd>CDC0nZjXgRWhUxvetS@TEST#MD5_2017</md5_key_cd>
+            </general>
+            <stores>
+              <store>Pharmacy Online,Chemist Direct</store>
+            </stores>
+        </htc>
+    </default>
+</config>

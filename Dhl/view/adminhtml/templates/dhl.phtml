@@ -1,0 +1,50 @@
+<?php
+	$post = $this->link('dhl/dhl/index');
+?>
+<form id="form" action="<?php echo $post; ?>" method="post" class="pure-form pure-form-stacked">
+    <fieldset>
+        <input class="pure-input-1" id="orderNo" type="text" name="orderNo" placeholder="Order Number" autofocus required>
+        <span class="pure-form-message">This is a required field.</span>
+				<label for="rSending" class="pure-checkbox" style="float:right;">
+            <input id="rSending" name="rSending" type="checkbox" value="y"> Resending?
+        </label>
+		</fieldset>
+		<fieldset>
+				<legend>Weight(g)</legend>
+	        <input class="pure-input-1" name="box1" id="box1" type="text" placeholder="Box 1">
+					<label for="milkP1" class="pure-checkbox" style="float:right;">
+	            <input id="milkP1" name="milkP1" type="checkbox" value="y"> Milk Powder?
+	        </label>
+				<br><br><br>
+        <input class="pure-input-1" name="box2" id="box2" type="text" placeholder="Box 2">
+				<label for="milkP2" class="pure-checkbox" style="float:right;">
+            <input id="milkP2" name="milkP2" type="checkbox" value="y"> Milk Powder?
+        </label>
+				<br><br><br>
+        <input class="pure-input-1" name="box3" id="box3" type="text" placeholder="Box 3">
+				<label for="milkP3" class="pure-checkbox" style="float:right;">
+            <input id="milkP3" name="milkP3" type="checkbox" value="y"> Milk Powder?
+        </label>
+				<br><br><br>
+        <input class="pure-input-1" name="box4" id="box4" type="text" placeholder="Box 4">
+				<label for="milkP4" class="pure-checkbox" style="float:right;">
+            <input id="milkP4" name="milkP4" type="checkbox" value="y"> Milk Powder?
+        </label>
+			</fieldset>
+			<fieldset>
+				<center>
+					<input name="form_key" id="form_key" type="hidden" value="<?php /* @escapeNotVerified */ echo $block->getFormKey() ?>" />
+        	<button type="submit" style="font-size: 125%;" class="action submit primary">Submit
+					</button>
+				</center>
+    	</fieldset>
+</form>
+<script>
+require([
+		"jquery",
+		"jquery/ui",
+		"Magento_Ui/js/modal/modal"
+], function($){
+	$('#form')[0].reset();
+});
+</script>

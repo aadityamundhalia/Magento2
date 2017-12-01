@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <newproducts>
+            <general>
+                <aes_key>1qa2ws4rf3edzxcv</aes_key>
+                <aes_iv>dfg452ws</aes_iv>
+                <md5_key>POC0nZjXgRWhUxvetS@TEST#MD5_2017</md5_key>
+            </general>
+        </newproducts>
+    </default>
+</config>

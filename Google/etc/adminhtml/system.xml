@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="project" translate="label" sortOrder="10">
+            <label>Project</label>
+        </tab>
+        <section id="google" translate="label" sortOrder="131" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Google-Feed</label>
+            <tab>project</tab>
+            <resource>Project_Google::google_configuration</resource>
+            <group id="stores" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Store Configuration</label>
+                <field id="store" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Store view</label>
+                    <comment>add store array eg. Pharmacy Online,Chemist Direct - no space after comma</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

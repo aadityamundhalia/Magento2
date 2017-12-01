@@ -1,0 +1,32 @@
+<?php
+  $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); //Set object Manager to call Models
+  $HelperBackend = $objectManager->get('Magento\Framework\UrlInterface');
+  $generateConsole = $HelperBackend->getUrl('keywords/generate/console');
+  $mediaPath =  $block->getPath() . 'google/log/log.txt';
+?>
+<br>
+<div id="containerDiv"></div>
+
+<script>
+    require([
+        "jquery",
+        "jquery/ui",
+        "Magento_Ui/js/modal/modal"
+    ], function($){
+
+      $.ajax({
+              url: "<?php echo $generateConsole; ?>",
+              success: function(html)
+                {
+                  $.ajax({
+                      url: "<?php echo $mediaPath; ?>",
+                      dataType: 'text',
+                      success: function(text) {
+                          $("#containerDiv").text(text);
+                          setTimeout(getLog, 1000); // refresh every 1 seconds
+                      }
+                  });
+                }
+              });
+    });
+</script>

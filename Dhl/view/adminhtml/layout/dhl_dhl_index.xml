@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <head>
+    <css src="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous" src_type="url" />
+  </head>
+  <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Project\Dhl\Block\Dhl" name="dhl" template="result.phtml" />
+            <!--<uiComponent name="loyalty_form"/>-->
+        </referenceContainer>
+    </body>
+</page>

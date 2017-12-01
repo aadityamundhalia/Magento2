@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="cron_group_google_feed"> <!-- Doesn't need to be unique -->
+        <job name="cron_google_feed" instance="Project\Google\Cron\Google" method="execute">
+            <schedule>5 15 * * *</schedule>
+        </job>
+    </group>
+</config>

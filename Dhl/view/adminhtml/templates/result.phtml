@@ -1,0 +1,60 @@
+<?php
+ $shipment = $this->getShippment();
+ //print_r($shipment);
+?>
+<style>
+
+/*How they look like on the print preview*/
+@media print {
+        .noprint {display: none}
+        .nextpage {page-break-after: always; }
+        .barcodeImg {margin: 20mm 0mm 5mm 20mm;}
+        .cAddr {font-size: 18pt;}
+        .topLeft {font-size: 18px;}
+        .margin-left: 30px;
+}
+/*How they look like on the screen*/
+@media screen {
+
+        .noprint {display: none}
+        .nextpage {page-break-after: always;width: 157mm;}
+        .barcodeImg {margin: 20mm 0mm 5mm 20mm;}
+        .cAddr {font-size: xx-large;}
+        .topLeft {font-size: x-large;}
+}
+@page {size: 101.6mm 152.4mm; margin: 10mm 0mm 0mm 10mm;}
+</style>
+<p style="float:right"><button class = "action submit primary noprint" onclick="printDiv('printableArea')">Print this page</button></p>
+<div id="printableArea">
+  <?php
+    $shipmentCount = count($shipment);
+    for ($i=0; $i < $shipmentCount; $i++) {
+      ?>
+        <div class="nextpage" >
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <div class="topLeft"><?php echo $shipment[$i]['topLeft']; ?></div>
+          <img class="barcodeImg" src='https://barcode.tec-it.com/barcode.ashx?data=<?php echo $shipment[$i]['barcode']; ?>&code=Code128&unit=Fit&dpi=100' />
+          <div style="font-size: 18pt;" class="cAddr"><div><b><?php echo $shipment[$i]['consigneeName']; ?></b></div>
+            <div style="font-size: 17pt;"><?php echo chunk_split($shipment[$i]['address1'], 30, "<br>"); ?></div>
+            <div style="font-size: 17pt;"><?php echo chunk_split($shipment[$i]['address2'], 30, "<br>"); ?></div>
+            <div style="font-size: 17pt;"><?php echo $shipment[$i]['city'] . ', ' .$shipment[$i]['state']; ?></div>
+            <div style="font-size: 17pt;"><?php echo $shipment[$i]['postcode']; ?></div>
+            <div style="font-size: 17pt;"><?php echo $shipment[$i]['countryName']; ?></div>
+          </div>
+        </div>
+      <?php
+    }
+  ?>
+</div>
+<script>
+  function printDiv(divName) {
+       var printContents = document.getElementById(divName).innerHTML;
+       var originalContents = document.body.innerHTML;
+       document.body.innerHTML = printContents;
+       window.print();
+       document.body.innerHTML = originalContents;
+       setTimeout(function(){
+            window.location = "<?php echo $this->link('dhl/index/index'); ?>";
+        }, 1000);
+  }
+</script>

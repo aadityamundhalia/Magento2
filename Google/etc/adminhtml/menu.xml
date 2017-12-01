@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Project_Google::index_level_2"
+           title="Google"
+           module="Project_Google"
+           action="google/generate/index"
+           parent="Project_Dhl::first_level_main"
+           sortOrder="2"
+           dependsOnModule="Project_Google"
+           resource="Project_Google::google"/>
+
+       <add id="Project_Google::index_level_1_1"
+              title="Keywords"
+              module="Project_Google"
+              sortOrder="2"
+              resource="Project_Google::index_level_1_1"
+              parent="Project_Google::index_level_2"
+              action="keywords/google/index"/>
+
+        <add id="Project_Google::index_level_1_2"
+               title="BlackList"
+               module="Project_Google"
+               sortOrder="3"
+               resource="Project_Google::index_level_1_2"
+               parent="Project_Google::index_level_2"
+               action="keywords/products/index"/>
+    </menu>
+</config>
